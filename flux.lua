@@ -11,6 +11,16 @@ home.BackgroundColor3 = Color3.fromHex("#050B12")
 home.BackgroundTransparency = 0.1
 home.Parent = screen
 home.Visible = false
+--scroll
+local scroll = Instance.new("ScrollingFrame")
+scroll.Parent = home
+scroll.Position = UDim2.new(0,10,0,35)
+scroll.Size = UDim2.new(1,-20,1,-45)
+scroll.BackgroundTransparency = 1
+scroll.BorderSizePixel = 0
+
+scroll.CanvasSize = UDim2.new(0,0,0,600)
+scroll.ScrollBarThickness = 5
 
 local stroke = Instance.new("UIStroke")
 stroke.Thickness = 2
@@ -65,7 +75,6 @@ box.BackgroundColor3 = Color3.fromHex("#0B1F33")
 box.TextColor3 = Color3.fromHex("#E0F2FE")
 box.PlaceholderColor3 = Color3.fromHex("#64748B")
 box.Text = "input"
-box.TextSize = 18
 box.Parent = key
 
 local boxCorner = Instance.new("UICorner")
@@ -133,7 +142,7 @@ speedbox.PlaceholderColor3 = Color3.fromHex("#64748B")
 speedbox.Text = ""
 speedbox.TextSize = 16
 speedbox.TextColor3 = Color3.fromHex("#E0F2FE")
-speedbox.Parent = home
+speedbox.Parent = scroll
 
 local speedCorner = Instance.new("UICorner")
 speedCorner.CornerRadius = UDim.new(0,7)
@@ -149,7 +158,7 @@ apply.TextColor3 = Color3.fromHex("#04471C")
 apply.Text = "Apply"
 apply.Font = Enum.Font.GothamBold
 apply.TextSize = 14
-apply.Parent = home
+apply.Parent = scroll
 
 local applyCorner = Instance.new("UICorner")
 applyCorner.CornerRadius = UDim.new(0,7)
@@ -220,7 +229,7 @@ jumpbox.PlaceholderColor3 = Color3.fromHex("#64748B")
 jumpbox.Text = ""
 jumpbox.TextSize = 16
 jumpbox.TextColor3 = Color3.fromHex("#E0F2FE")
-jumpbox.Parent = home
+jumpbox.Parent = scroll
 
 local jumpCorner = Instance.new("UICorner")
 jumpCorner.CornerRadius = UDim.new(0,7)
@@ -236,7 +245,7 @@ apply2.TextColor3 = Color3.fromHex("#04471C")
 apply2.Text = "Apply"
 apply2.Font = Enum.Font.GothamBold
 apply2.TextSize = 14
-apply2.Parent = home
+apply2.Parent = scroll
 
 local apply2Corner = Instance.new("UICorner")
 apply2Corner.CornerRadius = UDim.new(0,7)
@@ -250,7 +259,119 @@ apply2.MouseButton1Click:Connect(function()
         game.Players.LocalPlayer.Character.Humanoid.JumpPower = jump
     end
 end)
-
+--text inf jump
+local textJump = Instance.new("TextLabel") 
+textJump.Text = "infinity jump"
+textJump.TextSize = 18
+textJump.Size = UDim2.new(0,165,0,35)
+textJump.Position = UDim2.new(0,20,0,175) 
+textJump.BackgroundColor3 = Color3.fromHex("#0B1F33") 
+textJump.TextColor3 = Color3.fromHex("#FFFFFF") 
+textJump.Parent = scroll
+--corner textJump
+local cornerInf = Instance.new("UICorner")
+cornerInf.Parent = textJump
+cornerInf.CornerRadius = UDim.new(0,7)
+--infinity jump
+local infinityJump = false
+local inf = Instance.new("TextButton")
+inf.Size = UDim2.new(0,80,0,30)
+inf.Position = UDim2.new(0,195,0,175)
+inf.Text = "off"
+inf.TextSize = 14
+inf.BackgroundColor3 = Color3.fromHex("#D00018")
+inf.TextColor3 = Color3.fromHex("#64748B")
+inf.Parent = scroll
+--cornerifi
+local cornerInfi = Instance.new("UICorner")
+cornerInfi.Parent = inf
+cornerInfi.CornerRadius = UDim.new(0,7)
+--переключкние текста у кнопки
+inf.MouseButton1Click:Connect(function()
+infinityJump = not infinityJump
+    if infinityJump then
+        inf.Text = "on"
+            inf.BackgroundColor3 = Color3.fromHex("#16DB65")
+    else
+        inf.Text = "off"
+            inf.BackgroundColor3 = Color3.fromHex("#D00018")
+    end
+end)
+--inf jump function
+game:GetService("UserInputService").JumpRequest:Connect(function()
+    if infinityJump then
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        
+        if humanoid then
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+    end
+end)
+--fovBox
+local fovBox = Instance.new("TextBox")
+fovBox.Position = UDim2.new(0,20,0,235)
+fovBox.Size = UDim2.new(0,165,0,35)
+fovBox.BackgroundColor3 = Color3.fromHex("#0B1F33")
+fovBox.PlaceholderColor3 = Color3.fromHex("#16DB65")
+fovBox.PlaceholderText = "70-140"
+fovBox.Text = "FOV"
+fovBox.TextSize = 16
+fovBox.TextColor3 = Color3.fromHex("#E0F2FE")
+fovBox.Parent = scroll
+--fov box corner
+local fovBoxCorner = Instance.new("UICorner")
+fovBoxCorner.Parent = fovBox
+fovBoxCorner.CornerRadius = UDim.new(0,7)
+--fov apply
+local applyFov = Instance.new("TextButton")
+applyFov.Position = UDim2.new(0,195,0,237)
+applyFov.Size = UDim2.new(0,80,0,30)
+applyFov.BackgroundColor3 = Color3.fromHex("#16DB65") 
+applyFov.TextColor3 = Color3.fromHex("#04471C")
+applyFov.Text = "Apply"
+applyFov.Font = Enum.Font.GothamBold
+applyFov.TextSize = 14
+applyFov.Parent = scroll
+--applyFovCorner
+local applyFovCorner = Instance.new("UICorner")
+applyFovCorner.Parent = applyFov
+applyFovCorner.CornerRadius = UDim.new(0,7)
+--
+--aplyfov function
+applyFov.MouseButton1Click:Connect(function()
+local fov = tonumber(fovBox.Text)
+    if fov and fov >= 70 and fov <= 140 then
+        workspace.CurrentCamera.FieldOfView = fov
+    end
+end)
+--textEsp
+local textEsp = Instance.new("TextLabel")
+textEsp.Position = UDim2.new(0,20,0,295)
+textEsp.Size = UDim2.new(0,165,0,35)
+textEsp.BackgroundColor3 = Color3.fromHex("#0B1F33")
+textEsp.TextColor3 = Color3.fromHex("#FFFFFF")
+textEsp.Text = "ESP"
+textEsp.TextSize = 14
+textEsp.Parent = scroll
+--espCorner
+local espCorner = Instance.new("UICorner")
+espCorner.Parent = textEsp
+espCorner.CornerRadius = UDim.new(0,7)
+--espButton
+local espButton = Instance.new("TextButton")
+espButton.Position = UDim2.new(0,195,0,295)
+espButton.Size = UDim2.new(0,80,0,30)
+espButton.BackgroundColor3 = Color3.fromHex("#D00018")
+espButton.TextColor3 = Color3.fromHex("#FFFFFF")
+espButton.TextSize = 16
+espButton.Text = "off"
+espButton.Parent = scroll
+--espButtonCorner
+local espButtonCorner = Instance.new("UICorner")
+espButtonCorner.Parent = espButton
+espButtonCorner.CornerRadius = UDim.new(0,7)
 -- NAME HUB
 local nameHub = Instance.new("TextLabel")
 nameHub.Text = "flux hub"
@@ -262,7 +383,101 @@ nameHub.TextSize = 16
 nameHub.Font = Enum.Font.GothamBold
 nameHub.TextColor3 = Color3.fromHex("#16DB65")
 nameHub.Parent = home
+--espButtonFunction
+local Players = game:GetService("Players")
+local espEnabled = false
 
+espButton.MouseButton1Click:Connect(function()
+    espEnabled = not espEnabled
+
+    if espEnabled then
+        espButton.BackgroundColor3 = Color3.fromHex("#16DB65")
+        espButton.TextColor3 = Color3.fromHex("#04471C")
+        espButton.Text = "on"
+    else
+        espButton.BackgroundColor3 = Color3.fromHex("#D00018")
+        espButton.TextColor3 = Color3.fromHex("#FFFFFF")
+        espButton.Text = "off"
+    end
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= Players.LocalPlayer and player.Character then
+
+            if espEnabled then
+                local light = Instance.new("Highlight")
+                light.Name = "ESP"
+                light.FillColor = Color3.fromRGB(255,0,0)
+                light.OutlineColor = Color3.fromRGB(255,255,255)
+                light.Parent = player.Character
+            else
+                local light = player.Character:FindFirstChild("ESP")
+
+                if light then
+                    light:Destroy()
+                end
+            end
+
+        end
+    end
+end)
+--textNoclip
+local textNoclip = Instance.new("TextLabel")
+textNoclip.Position = UDim2.new(0,20,0,355)
+textNoclip.Size = UDim2.new(0,165,0,35)
+textNoclip.BackgroundColor3 = Color3.fromHex("#0B1F33")
+textNoclip.TextColor3 = Color3.fromHex("#FFFFFF")
+textNoclip.Text = "Noclip"
+textNoclip.TextSize = 16
+textNoclip.Parent = scroll
+--textNoclipCorner
+local textNoclipCorner = Instance.new("UICorner")
+textNoclipCorner.Parent = textNoclip
+textNoclipCorner.CornerRadius = UDim.new(0,7)
+--buttonNoclip
+local buttonNoclip = Instance.new("TextButton")
+buttonNoclip.Position = UDim2.new(0,195,0,355)
+buttonNoclip.Size = UDim2.new(0,80,0,30)
+buttonNoclip.BackgroundColor3 = Color3.fromHex("#D00018")
+buttonNoclip.TextColor3 = Color3.fromHex("#FFFFFF")
+buttonNoclip.Text = "off"
+buttonNoclip.TextSize = 14
+buttonNoclip.Parent = scroll
+--buttonNoclipCorner
+local buttonNoclipCorner = Instance.new("UICorner")
+buttonNoclipCorner.Parent = buttonNoclip
+buttonNoclipCorner.CornerRadius = UDim.new(0,7)
+--buttonNoclip function
+local noclipEnabled = false
+buttonNoclip.MouseButton1Click:Connect(function()
+noclipEnabled = not noclipEnabled
+    if noclipEnabled then
+    buttonNoclip.BackgroundColor3 = Color3.fromHex("#16DB65")
+    buttonNoclip.TextColor3 = Color3.fromHex("#04471C")
+    buttonNoclip.Text = "on"
+    else
+    buttonNoclip.BackgroundColor3 = Color3.fromHex("#D00018")
+    buttonNoclip.TextColor3 = Color3.fromHex("#FFFFFF")
+    buttonNoclip.Text = "off"
+    end
+end)
+--noclip RunService
+game:GetService("RunService").Stepped:Connect(function()
+    local character = game.Players.LocalPlayer.Character
+
+    if character then
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") then
+
+                if noclipEnabled then
+                    part.CanCollide = false
+                else
+                    part.CanCollide = true
+                end
+
+            end
+        end
+    end
+end)
 -- BY VAVA22115
 local by = Instance.new("TextLabel")
 by.Text = "by Vava22115"
